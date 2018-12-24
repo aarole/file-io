@@ -1,0 +1,3 @@
+aditya	arole	3.86
+john	doe	3.5
+dan	nad	3.0
