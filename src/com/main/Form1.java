@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Form1 {
     private JPanel panel1;
@@ -16,10 +18,10 @@ public class Form1 {
     private JButton clearButton;
     private JButton exitButton;
     private JTextField txtGPA;
-    private String[] mFirst = new String[20];
-    private String[] mLast = new String[20];
-    private double[] mGPA = new double[20];
-    private int mIndex = 0;
+    public static String[] mFirst = new String[20];
+    public static String[] mLast = new String[20];
+    public static double[] mGPA = new double[20];
+    public static int mIndex = 0;
 
     public Form1() {
         clearButton.addActionListener(new ActionListener() {
@@ -102,6 +104,9 @@ public class Form1 {
                     }
                     System.exit(0);
                 }
+                else{
+                    return;
+                }
             }
         });
     }
@@ -127,22 +132,43 @@ public class Form1 {
             txtFirst.requestFocus();
             return false;
         }
-        if(txtLast.getText() == "")
+        else if(txtLast.getText() == "")
         {
             JOptionPane.showMessageDialog(null, "Please enter your last name.");
             txtLast.requestFocus();
             return false;
         }
-        if(TryParse() == false)
+        else if(TryParse() == false)
         {
             JOptionPane.showMessageDialog(null, "Please enter a real number in GPA.");
             txtGPA.requestFocus();
             return false;
         }
-        return true;
+        else
+        {
+            return true;
+        }
     }
 
     public static void main(String[] args) {
+        try {
+            Scanner readFile = new Scanner(new File("output.txt"));
+            while (readFile.hasNextLine()) {
+                String salesRecords = readFile.nextLine();
+                Scanner lineScan = new Scanner(salesRecords);
+                lineScan.useDelimiter("\t");
+                mFirst[mIndex] = lineScan.next();
+                mLast[mIndex] = lineScan.next();
+                mGPA[mIndex] = lineScan.nextDouble();
+                mIndex++;
+                lineScan.close();
+            }
+        }
+        catch (Exception e1)
+        {
+            e1.printStackTrace();
+        }
+
         JFrame frame = new JFrame("FileIO");
         frame.setContentPane(new Form1().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
