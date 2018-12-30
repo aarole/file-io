@@ -154,8 +154,8 @@ public class Form1 {
         try {
             Scanner readFile = new Scanner(new File("output.txt"));
             while (readFile.hasNextLine()) {
-                String salesRecords = readFile.nextLine();
-                Scanner lineScan = new Scanner(salesRecords);
+                String line = readFile.nextLine();
+                Scanner lineScan = new Scanner(line);
                 lineScan.useDelimiter("\t");
                 mFirst[mIndex] = lineScan.next();
                 mLast[mIndex] = lineScan.next();
