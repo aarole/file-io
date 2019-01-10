@@ -1,3 +1,5 @@
 aditya	arole	3.86
 james	bond	3.5
 john	doe	3.2
+chris	smith	2.7
+jane	doe	3.3

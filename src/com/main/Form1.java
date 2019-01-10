@@ -1,12 +1,12 @@
 package com.main;
 
-import com.sun.codemodel.internal.JOp;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Form1 {
@@ -123,30 +123,52 @@ public class Form1 {
         }
     }
 
+    public boolean RangeCheck()
+    {
+       double gpa = Double.parseDouble(txtGPA.getText());
+
+       if(gpa<0 || gpa > 4)
+       {
+           return false;
+       }
+       else
+       {
+           return true;
+       }
+    }
+
 
     public boolean ValidateInput()
     {
-        if(txtFirst.getText() == "")
+        boolean flag = false;
+        if(txtFirst.getText().isEmpty())
         {
             JOptionPane.showMessageDialog(null, "Please enter your first name.");
             txtFirst.requestFocus();
-            return false;
+            return flag;
         }
-        else if(txtLast.getText() == "")
+        else if(txtLast.getText().isEmpty())
         {
             JOptionPane.showMessageDialog(null, "Please enter your last name.");
             txtLast.requestFocus();
-            return false;
+            return flag;
         }
         else if(TryParse() == false)
         {
             JOptionPane.showMessageDialog(null, "Please enter a real number in GPA.");
             txtGPA.requestFocus();
-            return false;
+            return flag;
+        }
+        else if(RangeCheck() == false)
+        {
+            JOptionPane.showMessageDialog(null, "Please enter a GPA between 0 and 4.");
+            txtGPA.requestFocus();
+            return flag;
         }
         else
         {
-            return true;
+            flag = true;
+            return flag;
         }
     }
 
